@@ -1,0 +1,39 @@
+﻿
+@using Microsoft.AspNetCore.Http;
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="pt-5 text-center">
+    <h1 style="color:lightcoral; "> Welcome @Context.Session.GetString("email")</h1>
+
+</div>
+ <div class="pt-3"></div>
+<div class="container">
+    <div class="row">
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <a asp-action="Absences" asp-controller="responsables" class="list-group-item list-group-item-action list-group-item-primary">Go To Absences</a>
+            <div class="pt-3"></div>
+            <a asp-action="Congés" asp-controller="responsables" class="list-group-item list-group-item-action list-group-item-success">Go To Congés</a>
+            <div class="pt-3"></div>
+            <a asp-action="Disponibilités" asp-controller="responsables" class="list-group-item list-group-item-action list-group-item-primary">Go To Disponibilités</a>
+
+        </div>
+        <div class="col-lg-6">
+            <a asp-action="ShowCollaborateurs" asp-controller="responsables" class="list-group-item list-group-item-action list-group-item-secondary">Show the collaborateurs</a>
+            <div class="pt-3"></div>
+            <a asp-action="AllResponsables" asp-controller="responsables" class="list-group-item list-group-item-action list-group-item-success">Go To Responsables</a>
+            <div class="pt-3"></div>
+            <a asp-action="index" asp-controller="responsables" class="list-group-item list-group-item-action list-group-item-info">My Profil</a>
+
+
+        </div>
+    </div>
+</div>
+
+

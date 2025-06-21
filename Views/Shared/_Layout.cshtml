@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - agaestion</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="container-fluid">
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top">
+            <a class="navbar-brand" href="#">CAR DEALER</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto topnav">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="Bienvenu" asp-controller="Collaborateurs">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Disponibilité"> Disponibilité</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Absences">Absences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Congé"> Congé</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        @if (Context.Session.GetString("emailC") == null)
+                        {
+                            <a class="nav-link dropdown-toggle" asp-action="Login" asp-controller="Collaborateurs" id="navbarDropdown">
+                                Connexion
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link dropdown-toggle" asp-action="Login" asp-controller="Collaborateurs" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Context.Session.GetString("emailC")
+
+                            </a>}
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-action="index" asp-controller="Collaborateurs">Profil</a>
+                            <a class="dropdown-item" href="#">Carproof</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-controller="Collaborateurs" asp-action="Loginout">Diconnecté</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-danger text-white" type="button" asp-action="Create" asp-controller="Collaborateurs">Register</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- The Modal -->
+            <!-- Modal Header -->
+            <!-- Modal body -->
+            <!-- Modal footer -->
+
+
+
+        </nav>
+    </div>
+
+
+
+    @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Responsables" asp-action="Loginout">Loginout</a>
+        </li>*@
+
+    <div class="container">
+        <main role="main" class="pt-5">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container">
+            &copy; 2025 - Gestion_Des_Présences - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy;  - <a asp-area="" asp-controller="Responsables" asp-action="Login">Admin</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Add in your <head> or before </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

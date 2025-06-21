@@ -1,0 +1,43 @@
+﻿@model Gestion_Des_prèneces.Models.Disponibilité
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Disponibilité</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateMiseEnDisponibilité)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateMiseEnDisponibilité)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateHDebutDisponibilité)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateHDebutDisponibilité)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateHFinDisponibilité)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateHFinDisponibilité)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumClNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumClNavigation.NumCl)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="EditDisponibilité" asp-route-id="@Model.IdDisponibilité">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

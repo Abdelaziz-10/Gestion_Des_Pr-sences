@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Gestion_Des_prèneces.Models.Responsable>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="pt-5 text-center">
+    <h1 style="color: lightcoral">des responbales</h1>
+</div>
+<div class="pt-3"></div>
+
+<table class="table table-hover pt-5 mt-5">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomRe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrenomRe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomRe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrenomRe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.NumRe">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.NumRe">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.NumRe">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-lg-6">
+    <a asp-action="ShowCollaborateurs" asp-controller="Responsables">Show the Collaborateurs</a>
+</div>

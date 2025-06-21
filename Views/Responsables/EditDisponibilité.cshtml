@@ -1,0 +1,52 @@
+﻿@model Gestion_Des_prèneces.Models.Disponibilité
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Disponibilité</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditDisponibilité">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdDisponibilité" />
+            <div class="form-group">
+                <label asp-for="DateMiseEnDisponibilité" class="control-label"></label>
+                <input asp-for="DateMiseEnDisponibilité" class="form-control" />
+                <span asp-validation-for="DateMiseEnDisponibilité" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateHDebutDisponibilité" class="control-label"></label>
+                <input asp-for="DateHDebutDisponibilité" class="form-control" />
+                <span asp-validation-for="DateHDebutDisponibilité" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateHFinDisponibilité" class="control-label"></label>
+                <input asp-for="DateHFinDisponibilité" class="form-control" />
+                <span asp-validation-for="DateHFinDisponibilité" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumCl" class="control-label"></label>
+
+                <input id="NumCl" hidden name="NumCl" type="text" asp-for="NumCl" />
+
+                <span asp-validation-for="NumCl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

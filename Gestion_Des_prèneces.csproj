@@ -1,0 +1,148 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <StartupObject></StartupObject>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <FileAlignment>1024</FileAlignment>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\.DS_Store" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\assets\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\assets\css\bootstrap\mixins\.DS_Store" />
+    <None Include="wwwroot\assets\css\bootstrap\mixins\_border-radius.css" />
+    <None Include="wwwroot\assets\css\bootstrap\mixins\_reset-text.css" />
+    <None Include="wwwroot\assets\css\bootstrap\mixins\_screen-reader.css" />
+    <None Include="wwwroot\assets\css\bootstrap\mixins\_text-hide.css" />
+    <None Include="wwwroot\assets\css\bootstrap\mixins\_visibility.css" />
+    <None Include="wwwroot\assets\css\bootstrap\utilities\_stretched-link.css" />
+    <None Include="wwwroot\assets\css\bootstrap\_media.css" />
+    <None Include="wwwroot\assets\css\style.css" />
+    <None Include="wwwroot\assets\fonts\.DS_Store" />
+    <None Include="wwwroot\assets\images\.DS_Store" />
+    <None Include="wwwroot\assets\images\bg.jpg" />
+    <None Include="wwwroot\assets\js\.DS_Store" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\jquery.min.js" />
+    <None Include="wwwroot\assets\js\main.js" />
+    <None Include="wwwroot\assets\js\popper.js" />
+    <None Include="wwwroot\assets\scss\.DS_Store" />
+    <None Include="wwwroot\assets\scss\bootstrap\.DS_Store" />
+    <None Include="wwwroot\assets\scss\bootstrap\bootstrap-grid.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\bootstrap-reboot.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\bootstrap.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_alert.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_background-variant.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_badge.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_border-radius.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_box-shadow.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_breakpoints.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_caret.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_clearfix.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_deprecate.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_float.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_forms.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_gradients.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_grid-framework.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_grid.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_hover.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_image.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_list-group.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_lists.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_nav-divider.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_pagination.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_reset-text.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_resize.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_screen-reader.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_size.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_table-row.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_text-emphasis.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_text-hide.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_text-truncate.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_transition.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\mixins\_visibility.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_align.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_background.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_borders.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_clearfix.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_display.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_embed.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_flex.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_float.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_overflow.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_position.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_screenreaders.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_shadows.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_sizing.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_spacing.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_stretched-link.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_text.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\utilities\_visibility.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\vendor\_rfs.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_alert.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_badge.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_breadcrumb.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_button-group.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_card.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_carousel.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_close.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_code.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_custom-forms.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_forms.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_functions.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_grid.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_images.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_input-group.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_jumbotron.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_list-group.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_media.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_mixins.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_modal.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_nav.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_navbar.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_pagination.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_popover.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_print.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_progress.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_reboot.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_root.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_spinners.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_tables.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_toasts.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_tooltip.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_transitions.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_type.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_utilities.scss" />
+    <None Include="wwwroot\assets\scss\bootstrap\_variables.scss" />
+    <None Include="wwwroot\assets\scss\style.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="KendoUICore" Version="2025.2.520" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core.Windows" Version="19.1.0.65" />
+  </ItemGroup>
+
+</Project>

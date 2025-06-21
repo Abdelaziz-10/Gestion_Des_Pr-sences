@@ -1,0 +1,168 @@
+﻿@model Gestion_Des_prèneces.Models.ModelsView.PaginatedCollaborateursViewModel
+@{
+    ViewData["Title"] = "Gérer les Collaborateurs";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container pt-5">
+    <h2 class="text-center text-primary mb-4">Gérer les Collaborateurs</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" id="searchBox" class="form-control" placeholder="Rechercher un collaborateur..." />
+        </div>
+        <div class="col-md-4">
+            <select id="filterSelect" class="form-select">
+                <option value="all">Tous</option>
+                <option value="assigned">Assignés</option>
+                <option value="unassigned">Non assignés</option>
+            </select>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="collabTableBody">
+            @foreach (var item in Model.Collaborateurs)
+            {
+                <tr>
+                    <td>@item.NomCl</td>
+                    <td>@item.PrenomCl</td>
+                    <td>@item.Email</td>
+                    <td>@item.Tel</td>
+                    <td>@item.Adresse</td>
+                    <td id="action-cell-@item.NumCl">
+                        @if (!Model.AssignedIds.Contains(item.NumCl))
+                        {
+                            <button class="btn btn-sm btn-success" onclick="confirmAdd(@item.NumCl)">Ajouter</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-danger" onclick="confirmRemove(@item.NumCl)">Supprimer</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="?page=@i">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+    <a asp-action="Bienvenu" asp-controller="Responsables" class="btn btn-secondary">Retour au menu</a>
+</div>
+
+<form id="dummyForm">
+    @Html.AntiForgeryToken()
+</form>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+              function loadFilteredData() {
+          const search = document.getElementById("searchBox").value;
+          const filter = document.getElementById("filterSelect").value;
+
+          fetch(`/Responsables/ManageCollaborateursAjax?search=${encodeURIComponent(search)}&filter=${filter}`)
+            .then(r => r.text())
+            .then(html => {
+              document.getElementById("collabTableBody").innerHTML = html;
+            });
+        }
+
+        document.getElementById("searchBox").addEventListener("input", loadFilteredData);
+        document.getElementById("filterSelect").addEventListener("change", loadFilteredData);
+
+        window.onload = loadFilteredData;
+
+              function confirmAdd(collabId) {
+            Swal.fire({
+                title: 'Confirmation',
+                text: "Voulez-vous vraiment ajouter ce collaborateur ?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, ajouter'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("/Responsables/AddCollaborateurToResponsableAjax", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        body: `collaborateurId=${collabId}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                loadFilteredData();
+                                Swal.fire('Succès', 'Collaborateur assigné avec succès.', 'success');
+                            } else {
+                                Swal.fire('Erreur', data.message, 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            Swal.fire('Erreur serveur', '', 'error');
+                        });
+                }
+            });
+        }
+
+        function confirmRemove(collabId) {
+            Swal.fire({
+                title: 'Confirmation',
+                text: "Voulez-vous vraiment supprimer ce collaborateur ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Oui, supprimer'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("/Responsables/RemoveCollaborateurFromResponsableAjax", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        body: `collaborateurId=${collabId}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                loadFilteredData();
+                                Swal.fire('Succès', 'Collaborateur retiré avec succès.', 'success');
+                            } else {
+                                Swal.fire('Erreur', data.message, 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            Swal.fire('Erreur serveur', '', 'error');
+                        });
+                }
+            });
+        }
+    </script>
+}

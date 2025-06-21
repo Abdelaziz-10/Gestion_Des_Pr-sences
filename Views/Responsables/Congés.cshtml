@@ -1,0 +1,198 @@
+﻿@model IEnumerable<Gestion_Des_prèneces.Models.ModelsView.CongéView>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="pt-5 text-center">
+    <h1 style="color: lightcoral">Des conges</h1>
+</div>
+<div class="pt-3"></div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDebutCongé)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFinCongé)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Types)
+            </th>
+            <td>
+                @Html.DisplayNameFor(model => model.NomCl)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Accord)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDebutCongé)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFinCongé)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Types)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomCl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accord)
+            </td>
+
+            <td>
+                    <form method="post" asp-action="RedirectToEditAbsence" asp-controller="Responsables" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.IdCongé" />
+                        <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                    </form>
+                    @* <form method="post" asp-action="DeleteAbsences" asp-controller="Responsables" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.IdAbsence" />
+                        <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                    </form> *@
+                    @* <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(@item.IdCongé)">Supprimer</button> *@
+
+                    <button class="btn btn-sm btn-danger"
+                            onclick="confirmDelete(@item.IdCongé, this)">
+                        Supprimer
+                    </button>
+                    <!-- Optional if you still want direct routes -->
+                    @* 
+                    <a asp-action="DetailsAbsences" asp-route-id="@item.IdAbsence">Détails</a> |
+                    <a asp-action="DeleteAbsences" asp-route-id="@item.IdAbsence">Supprimer</a> 
+                    *@
+                @* <a asp-action="EditCongés" asp-route-id="@item.IdCongé">Edit</a> |
+                <a asp-action="DetailsCongés" asp-route-id="@item.IdCongé">Details</a> |
+                <a asp-action="DeleteCongés" asp-route-id="@item.IdCongé">Delete</a> *@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-3">
+    <a asp-action="Bienvenu" asp-controller="Responsables" class="btn btn-secondary">Retour au menu</a>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(id, button) {
+            Swal.fire({
+                title: 'Êtes-vous sûr ?',
+                text: "Cette action est irréversible !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Oui, supprimer',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show spinner
+                    Swal.fire({
+                        title: 'Suppression...',
+                        text: 'Veuillez patienter',
+                        didOpen: () => Swal.showLoading(),
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    });
+
+                    fetch('/Responsables/DeleteCongéAjax', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        body: JSON.stringify({ id: id })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the row from table
+                            $(button).closest('tr').remove();
+
+                            Swal.fire(
+                                'Supprimé !',
+                                'L\'élément a été supprimé avec succès.',
+                                'success'
+                            );
+                        } else {
+                            Swal.fire('Erreur', data.message || 'Une erreur est survenue.', 'error');
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire('Erreur', 'Erreur du serveur.', 'error');
+                    });
+                }
+            });
+        }
+    </script>
+}
+
+@* @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(Id) {
+            Swal.fire({
+                title: 'Êtes-vous sûr(e) ?',
+                text: "Cette action est irréversible.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Responsables/DeleteCongéAjax', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+            body: JSON.stringify({ id: Id })
+        })
+        .then(async response => {
+            if (!response.ok) {
+                const text = await response.text(); // to inspect what went wrong
+                console.error("Response error:", text);
+                throw new Error("HTTP error " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                Swal.fire('Supprimé !', 'L\'Congé a été supprimée.', 'success')
+                    .then(() => location.reload());
+            } else {
+                Swal.fire('Erreur', data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            Swal.fire('Erreur serveur', '', 'error');
+        });
+
+                }
+            });
+        }
+    </script>
+} *@

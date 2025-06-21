@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Gestion_Des_prèneces.Models.ModelsView.CollaborateursModelView>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="pt-5 text-center">
+    <h1 style="color: lightcoral">Collaborateurs</h1>
+
+</div>
+<div class="pt-3"></div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomCl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrenomCl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IdMission)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomCl)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrenomCl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdMission)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.NumCl">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.NumCl">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.NumCl">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-lg-6">
+    <a asp-action="ShowResponsables" asp-controller="Collaborateurs">Show the responsables</a>
+</div>
+

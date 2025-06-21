@@ -1,0 +1,43 @@
+﻿@model Gestion_Des_prèneces.Models.Absence
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Absence</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateDebutAb)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateDebutAb)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateFinAb)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateFinAb)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NbHAb)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NbHAb)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumClNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumClNavigation.NumCl)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="EditAbsences" asp-route-id="@Model.IdAbsence">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

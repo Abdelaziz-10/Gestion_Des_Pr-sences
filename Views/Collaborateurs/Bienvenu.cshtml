@@ -1,0 +1,50 @@
+﻿
+@using Microsoft.AspNetCore.Http;
+
+
+<div class="pt-5 text-center">
+    <h1 style="color:lightcoral; "> Welcome @Context.Session.GetString("emailC")</h1>
+
+</div>
+<div class="pt-3"></div>
+<div class="container">
+    <div class="row">
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <a asp-action="Index" asp-controller="Absences" class="list-group-item list-group-item-action list-group-item-primary">Go To Absences</a>
+            <div class="pt-3"></div>
+            <a asp-action="Index" asp-controller="Congé" class="list-group-item list-group-item-action list-group-item-success">Go To Congés</a>
+            <div class="pt-3"></div>
+
+        </div>
+        <div class="col-lg-6">
+            <a asp-action="ShowResponsables" asp-controller="Collaborateurs" class="list-group-item list-group-item-action list-group-item-secondary">Show the Responsables</a>
+            <div class="pt-3"></div>
+            <a asp-action="index" asp-controller="Collaborateurs" class="list-group-item list-group-item-action list-group-item-info">My Profil</a>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="pt-3"></div>
+            <a asp-action="Index" asp-controller="Disponibilité" class="list-group-item list-group-item-action list-group-item-primary">Go To Disponibilités</a>
+
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>
+
+
+
+@*//$(function () {
+    //    //var name=
+    //    var name = 'Welcome ' + ' <%= Session["emailC"] %>'
+    //    $('#show1').val(name)
+    //});*@
+

@@ -1,0 +1,26 @@
+﻿@using Gestion_Des_prèneces.Models.ModelsView
+@model IEnumerable<CollaborateursModelView>
+@{
+    var assigned = ViewBag.AssignedIds as List<int>;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.NomCl</td>
+        <td>@item.PrenomCl</td>
+        <td>@item.Email</td>
+        <td>@item.Tel</td>
+        <td>@item.Adresse</td>
+        <td id="action-cell-@item.NumCl">
+            @if (!assigned.Contains(item.NumCl))
+            {
+                <button class="btn btn-sm btn-success" onclick="confirmAdd(@item.NumCl)">Ajouter</button>
+            }
+            else
+            {
+                <button class="btn btn-sm btn-danger" onclick="confirmRemove(@item.NumCl)">Supprimer</button>
+            }
+        </td>
+    </tr>
+}

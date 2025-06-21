@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Gestion_Des_prèneces.Models.Congé>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pt-5 text-center">
+    <h1 style="color: lightcoral">Des conges</h1>
+</div>
+<div class="pt-3"></div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Date debut Congé
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFinCongé)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Types)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accord)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDebutCongé)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateFinCongé)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Types)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accord)
+                </td>
+                
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCongé">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCongé">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCongé">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="col-lg-6">
+    <a asp-action="Bienvenu" asp-controller="Collaborateurs">Go Back to Menu</a>
+</div>

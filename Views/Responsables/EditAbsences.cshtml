@@ -1,0 +1,41 @@
+﻿@model Gestion_Des_prèneces.Models.Absence
+
+@{
+    ViewData["Title"] = "Modifier Absence";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Modifier Absence</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EditAbsenceInternal" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdAbsence" />
+            <input type="hidden" asp-for="NumCl" />
+
+            <label asp-for="DateDebutAb"></label>
+            <input asp-for="DateDebutAb" class="form-control" />
+
+            <label asp-for="DateFinAb"></label>
+            <input asp-for="DateFinAb" class="form-control" />
+
+            <label asp-for="NbHAb"></label>
+            <input asp-for="NbHAb" class="form-control" />
+
+            <label>Collaborateur</label>
+            <p class="form-control-plaintext">@ViewBag.CollaborateurFullName</p>
+
+            <input type="submit" value="Enregistrer" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Absences" class="btn btn-secondary">Retour à la liste</a>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

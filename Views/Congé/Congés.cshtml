@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Gestion_Des_prèneces.Models.Congé>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="pt-3"></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDebutCongé)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFinCongé)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Types)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumClNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDebutCongé)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateFinCongé)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Types)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accord)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumClNavigation.NumCl)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCongé">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCongé">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCongé">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
