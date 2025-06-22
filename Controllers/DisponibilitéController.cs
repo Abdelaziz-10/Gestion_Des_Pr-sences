@@ -115,6 +115,57 @@ namespace Gestion_Des_prèneces.Controllers
             return View(disponibilité);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RedirectToEditDisponibilité(int id)
+        {
+            TempData["DisponibilitéId"] = id;
+            return RedirectToAction("EditDisponibilitéInternal");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditDisponibilitéInternal()
+        {
+            if (!TempData.ContainsKey("DisponibilitéId"))
+                return RedirectToAction("Index");
+
+            int id = (int)TempData["DisponibilitéId"];
+
+            var disponibilité = await _context.Disponibilités.FindAsync(id);
+            if (disponibilité == null) return NotFound();
+
+            var fullName = await _context.Collaborateurs
+                .Where(c => c.NumCl == disponibilité.NumCl)
+                .Select(c => c.NomCl + " " + c.PrenomCl)
+                .FirstOrDefaultAsync();
+
+            ViewBag.CollaborateurFullName = fullName;
+            return View("Edit", disponibilité);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDisponibilitéInternal(Disponibilité disponibilité)
+        {
+            if (!ModelState.IsValid)
+                return View("Edit", disponibilité);
+
+            try
+            {
+                _context.Update(disponibilité);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Disponibilités.Any(a => a.IdDisponibilité == disponibilité.IdDisponibilité))
+                    return NotFound();
+                else throw;
+            }
+        }
+
+
         // GET: Disponibilité/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

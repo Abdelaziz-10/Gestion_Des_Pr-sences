@@ -43,9 +43,25 @@
                 </td>
               
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdDisponibilité">Edit</a> |
+                    <form method="post" asp-action="RedirectToEditDisponibilité" asp-controller="Disponibilité" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.IdDisponibilité" />
+                        <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                    </form>
+
+
+                    <button class="btn btn-danger btn-sm"
+                            onclick="deleteItem({
+                                    url: '/Responsables/DeleteDisponibilitéAjax',
+                                    id: @item.IdDisponibilité,
+                                    button: this,
+                                    csrfToken: document.querySelector('input[name=__RequestVerificationToken]').value
+                                })">
+                        Supprimer
+                    </button>
+                    @* <a asp-action="Edit" asp-route-id="@item.IdDisponibilité">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.IdDisponibilité">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdDisponibilité">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdDisponibilité">Delete</a> *@
                 </td>
             </tr>
         }
@@ -53,5 +69,5 @@
 </table>
 
 <div class="col-lg-6">
-    <a asp-action="Bienvenu" asp-controller="Collaborateurs">Go Back to Menu</a>
+    <a asp-action="Bienvenu" asp-controller="Collaborateurs" class="btn btn-secondary">Retour au menu</a>
 </div>

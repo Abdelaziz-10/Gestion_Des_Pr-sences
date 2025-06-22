@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Gestion_Des_prèneces.Models;
+using Gestion_Des_prèneces.Models.ModelsView;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Gestion_Des_prèneces.Models;
-using Gestion_Des_prèneces.Models.ModelsView;
-using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static Gestion_Des_prèneces.Controllers.ResponsablesController;
 
 namespace Gestion_Des_prèneces.Controllers
 {
@@ -36,7 +37,8 @@ namespace Gestion_Des_prèneces.Controllers
                         IdAbsence = ab.IdAbsence,
                         DateDebutAb = ab.DateDebutAb,
                         DateFinAb = ab.DateFinAb,
-                       
+                        NbHAb = ab.NbHAb,
+
                     };
             return View(await a.ToListAsync());
             //var gestion_Des_PrésencesContext = _context.Absences.Include(a => a.NumClNavigation);
@@ -120,6 +122,76 @@ namespace Gestion_Des_prèneces.Controllers
             return View(absence);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RedirectToEditAbsence(int id)
+        {
+            TempData["AbsenceId"] = id;
+            return RedirectToAction("EditAbsenceInternal");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAbsenceInternal()
+        {
+            if (!TempData.ContainsKey("AbsenceId"))
+                return RedirectToAction("Index");
+
+            int id = (int)TempData["AbsenceId"];
+
+            var absence = await _context.Absences.FindAsync(id);
+            if (absence == null) return NotFound();
+
+            var fullName = await _context.Collaborateurs
+                .Where(c => c.NumCl == absence.NumCl)
+                .Select(c => c.NomCl + " " + c.PrenomCl)
+                .FirstOrDefaultAsync();
+
+            ViewBag.CollaborateurFullName = fullName;
+            return View("Edit", absence);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAbsenceInternal(Absence absence)
+        {
+            if (!ModelState.IsValid)
+                return View("Edit", absence);
+
+            try
+            {
+                _context.Update(absence);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Absences.Any(a => a.IdAbsence == absence.IdAbsence))
+                    return NotFound();
+                else throw;
+            }
+        }
+
+        // DeleteAbsenceAjax
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAbsenceAjax([FromBody] DeleteItem dto)
+        {
+            if (dto == null || dto.Id <= 0)
+            {
+                return Json(new { success = false, message = "ID invalide." });
+            }
+
+            var absence = await _context.Absences.FindAsync(dto.Id);
+            if (absence == null)
+            {
+                return Json(new { success = false, message = "Absence introuvable." });
+            }
+
+            _context.Absences.Remove(absence);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true });
+        }
         // POST: Absences/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

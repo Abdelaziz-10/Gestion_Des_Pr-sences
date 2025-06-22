@@ -22,7 +22,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateFinAb)
             </th>
-           
+           <th>
+                @Html.DisplayNameFor(model => model.NbHAb)
+           </th>
+           <th>Actios</th>
         </tr>
     </thead>
     <tbody>
@@ -35,11 +38,30 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DateFinAb)
                 </td>
-              
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdAbsence">Edit</a> |
+                    @Html.DisplayFor(modelItem => item.NbHAb)
+                </td>
+
+                <td>
+                    <form method="post" asp-action="RedirectToEditAbsence" asp-controller="Absences" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.IdAbsence" />
+                        <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                    </form>
+                   
+                   
+                    <button class="btn btn-danger btn-sm"
+                            onclick="deleteItem({
+                                url: '/Absences/DeleteAbsenceAjax',
+                                id: @item.IdAbsence,
+                                button: this,
+                                csrfToken: document.querySelector('input[name=__RequestVerificationToken]').value
+                            })">
+                        Supprimer
+                    </button>
+                   @*  <a asp-action="Edit" asp-route-id="@item.IdAbsence">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.IdAbsence">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdAbsence">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdAbsence">Delete</a> *@
                 </td>
             </tr>
         }
@@ -47,5 +69,5 @@
 </table>
 
 <div class="col-lg-6">
-    <a asp-action="Bienvenu" asp-controller="Collaborateurs">Go Back to Menu</a>
+    <a asp-action="Bienvenu" asp-controller="Collaborateurs" class="btn btn-secondary">Retour au menu</a>
 </div>

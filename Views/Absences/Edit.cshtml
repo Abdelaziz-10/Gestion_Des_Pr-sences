@@ -11,38 +11,29 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="EditAbsenceInternal" method="post">
+            @Html.AntiForgeryToken()
             <input type="hidden" asp-for="IdAbsence" />
-            <div class="form-group">
-                <label asp-for="DateDebutAb" class="control-label"></label>
-                <input asp-for="DateDebutAb" class="form-control" />
-                <span asp-validation-for="DateDebutAb" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateFinAb" class="control-label"></label>
-                <input asp-for="DateFinAb" class="form-control" />
-                <span asp-validation-for="DateFinAb" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NbHAb" class="control-label"></label>
-                <input asp-for="NbHAb" class="form-control" />
-                <span asp-validation-for="NbHAb" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-               
-                <select asp-for="NumCl" hidden class="form-control" asp-items="ViewBag.NumCl"></select>
-                <span asp-validation-for="NumCl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <input type="hidden" asp-for="NumCl" />
+
+            <label asp-for="DateDebutAb"></label>
+            <input asp-for="DateDebutAb" class="form-control" />
+
+            <label asp-for="DateFinAb"></label>
+            <input asp-for="DateFinAb" class="form-control" />
+
+            <label asp-for="NbHAb"></label>
+            <input asp-for="NbHAb" class="form-control" />
+
+            <label>Collaborateur</label>
+            <p class="form-control-plaintext">@ViewBag.CollaborateurFullName</p>
+
+            <input type="submit" value="Enregistrer" class="btn btn-primary" />
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
 </div>
 
 @section Scripts {

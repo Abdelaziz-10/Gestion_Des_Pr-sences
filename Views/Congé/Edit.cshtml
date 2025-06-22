@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="EditCongéInternal" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCongé" />
             <div class="form-group">
@@ -31,9 +31,9 @@
                 <span asp-validation-for="Types" class="text-danger"></span>
             </div>
             <div class="form-group">
-                
-                <select hidden asp-for="NumCl" class="form-control" asp-items="ViewBag.NumCl"></select>
-                <span asp-validation-for="NumCl" class="text-danger"></span>
+                <label class="control-label">Collaborateur </label>
+                <p class="form-control-plaintext">@ViewBag.CollaborateurFullName</p>
+                <input type="hidden" asp-for="NumCl" />
             </div>
             <div class="form-group">
                 
@@ -41,14 +41,14 @@
                 <span asp-validation-for="Accord" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Enregistrer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
 </div>
 
 @section Scripts {
