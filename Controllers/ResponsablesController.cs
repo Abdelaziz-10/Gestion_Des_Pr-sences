@@ -637,58 +637,57 @@ namespace Gestion_Des_prèneces.Controllers
             return View(disponibilité);
         }
 
-        // GET: Disponibilité/Edit/5
-        public async Task<IActionResult> EditDisponibilité(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var disponibilité = await _context.Disponibilités.FindAsync(id);
-            if (disponibilité == null)
-            {
-                return NotFound();
-            }
-            ViewData["NumCl"] = new SelectList(_context.Collaborateurs, "NumCl", "NumCl", disponibilité.NumCl);
-            return View(disponibilité);
-        }
-
-        // POST: Disponibilité/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditDisponibilité(int id, [Bind("IdDisponibilité,DateMiseEnDisponibilité,DateHDebutDisponibilité,DateHFinDisponibilité,NumCl")] Disponibilité disponibilité)
+        public IActionResult RedirectToEditDisponibilité(int id)
         {
-            if (id != disponibilité.IdDisponibilité)
-            {
-                return NotFound();
-            }
+            TempData["DisponibilitéId"] = id;
+            return RedirectToAction("EditDisponibilitéInternal");
+        }
 
-            if (ModelState.IsValid)
+        [HttpGet]
+        public async Task<IActionResult> EditDisponibilitéInternal()
+        {
+            if (!TempData.ContainsKey("DisponibilitéId"))
+                return RedirectToAction("Disponibilités");
+
+            int id = (int)TempData["DisponibilitéId"];
+
+            var disponibilité = await _context.Disponibilités.FindAsync(id);
+            if (disponibilité == null) return NotFound();
+
+            var fullName = await _context.Collaborateurs
+                .Where(c => c.NumCl == disponibilité.NumCl)
+                .Select(c => c.NomCl + " " + c.PrenomCl)
+                .FirstOrDefaultAsync();
+
+            ViewBag.CollaborateurFullName = fullName;
+            return View("EditDisponibilités", disponibilité);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDisponibilitéInternal(Disponibilité disponibilité)
+        {
+            if (!ModelState.IsValid)
+                return View("EditDisponibilités", disponibilité);
+
+            try
             {
-                try
-                {
-                    _context.Update(disponibilité);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DisponibilitéExists(disponibilité.IdDisponibilité))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Update(disponibilité);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("Disponibilités");
             }
-            ViewData["NumCl"] = new SelectList(_context.Collaborateurs, "NumCl", "NumCl", disponibilité.NumCl);
-            return View(disponibilité);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Disponibilités.Any(a => a.IdDisponibilité == disponibilité.IdDisponibilité))
+                    return NotFound();
+                else throw;
+            }
         }
+
+
+        
 
         // GET: Disponibilité/Delete/5
         public async Task<IActionResult> DeleteDisponibilité(int? id)

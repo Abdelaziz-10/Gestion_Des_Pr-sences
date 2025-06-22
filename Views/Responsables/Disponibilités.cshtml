@@ -29,7 +29,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -52,9 +52,22 @@
                     @Html.DisplayFor(modelItem => item.Prenom)
                 </td>
                 <td>
-                    <a asp-action="EditDisponibilité" asp-route-id="@item.IdDisponibilité">Edit</a> |
-                    <a asp-action="DetailsDisponibilité" asp-route-id="@item.IdDisponibilité">Details</a> |
-                    <a asp-action="DeleteDisponibilité" asp-route-id="@item.IdDisponibilité">Delete</a>
+                    <form method="post" asp-action="RedirectToEditDisponibilité" asp-controller="Responsables" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.IdDisponibilité" />
+                        <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                    </form>
+                   
+                    
+                    <button class="btn btn-danger btn-sm"
+                            onclick="deleteItem({
+                                url: '/Responsables/DeleteDisponibilitéAjax',
+                                id: @item.IdDisponibilité,
+                                button: this,
+                                csrfToken: document.querySelector('input[name=__RequestVerificationToken]').value
+                            })">
+                        Supprimer
+                    </button>
                 </td>
             </tr>
         }
