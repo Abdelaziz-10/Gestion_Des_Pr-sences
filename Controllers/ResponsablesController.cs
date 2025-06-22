@@ -413,6 +413,57 @@ namespace Gestion_Des_prèneces.Controllers
             //var gestion_Des_PrésencesContext = _context.Absences.Include(a => a.NumClNavigation);
             //return View(await gestion_Des_PrésencesContext.ToListAsync());
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RedirectToEditCongé(int id)
+        {
+            TempData["CongéId"] = id;
+            return RedirectToAction("EditCongéInternal");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditCongéInternal()
+        {
+            if (!TempData.ContainsKey("CongéId"))
+                return RedirectToAction("Congés");
+
+            int id = (int)TempData["CongéId"];
+
+            var congé = await _context.Congés.FindAsync(id);
+            if (congé == null) return NotFound();
+
+            var fullName = await _context.Collaborateurs
+                .Where(c => c.NumCl == congé.NumCl)
+                .Select(c => c.NomCl + " " + c.PrenomCl)
+                .FirstOrDefaultAsync();
+
+            ViewBag.CollaborateurFullName = fullName;
+            return View("EditCongés", congé);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditCongéInternal(Congé congé)
+        {
+            if (!ModelState.IsValid)
+                return View("EditCongés", congé);
+
+            try
+            {
+                _context.Update(congé);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Congés");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Congés.Any(a => a.IdCongé == congé.IdCongé))
+                    return NotFound();
+                else throw;
+            }
+        }
+
+
+
 
         // GET: Congé/Edit/5
         public async Task<IActionResult> EditCongés(int? id)

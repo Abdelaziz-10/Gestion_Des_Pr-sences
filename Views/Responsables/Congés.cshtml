@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Accord)
             </th>
 
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
             </td>
 
             <td>
-                    <form method="post" asp-action="RedirectToEditAbsence" asp-controller="Responsables" style="display:inline;">
+                    <form method="post" asp-action="RedirectToEditCongé" asp-controller="Responsables" style="display:inline;">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@item.IdCongé" />
                         <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
@@ -70,8 +70,18 @@
                     </form> *@
                     @* <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(@item.IdCongé)">Supprimer</button> *@
 
-                    <button class="btn btn-sm btn-danger"
+                     @* <button class="btn btn-sm btn-danger"
                             onclick="confirmDelete(@item.IdCongé, this)">
+                        Supprimer
+                    </button>  *@
+
+                    <button class="btn btn-danger btn-sm"
+                            onclick="deleteItem({
+                            url: '/Responsables/DeleteCongéAjax',
+                            id: @item.IdCongé,
+                            button: this,
+                            csrfToken: document.querySelector('input[name=__RequestVerificationToken]').value
+                        })">
                         Supprimer
                     </button>
                     <!-- Optional if you still want direct routes -->

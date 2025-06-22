@@ -1,8 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Accueil - Gestion des Présences";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div> 
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Bienvenue 👋</h1>
+        <p class="lead">Système de gestion des présences pour les employés</p>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🧑‍💼 Gestion des Employés</h5>
+                    <p class="card-text">Ajouter, modifier ou supprimer les employés.</p>
+                    <a href="/Employes" class="btn btn-primary">Gérer</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📅 Présences</h5>
+                    <p class="card-text">Marquer les présences quotidiennes.</p>
+                    <a href="/Presences" class="btn btn-success">Marquer</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📊 Statistiques</h5>
+                    <p class="card-text">Voir les rapports de présence.</p>
+                    <a href="/Statistiques" class="btn btn-info">Consulter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
